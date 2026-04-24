@@ -1135,14 +1135,14 @@ MonoBehaviour:
   _health: {fileID: 1988093867}
   _healthText: {fileID: 876012583}
   _format: '{0}/{1}'
-  _totalDuration: 0.3
-  _initialAmplitude: 15
-  _finalAmplitude: 5
-  _initialFrequency: 8
-  _finalFrequency: 15
-  _scaleMultiplier: 2
-  _scaleDecaySpeed: 4
-  _amplitudeCurve:
+  _damageTotalDuration: 0.3
+  _damageInitialAmplitude: 15
+  _damageFinalAmplitude: 1
+  _damageInitialFrequency: 8
+  _damageFinalFrequency: 15
+  _damageScaleMultiplier: 2
+  _damageScaleDecaySpeed: 4
+  _damageAmplitudeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -1166,7 +1166,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _frequencyCurve:
+  _damageFrequencyCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -1190,7 +1190,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _timeCurve:
+  _damageTimeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -1206,6 +1206,35 @@ MonoBehaviour:
       time: 1
       value: 1
       inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _healTotalDuration: 0.5
+  _healScaleMultiplier: 2
+  _healScaleMinMultiplier: 0.9
+  _healRippleCount: 2
+  _healRippleDecay: 3
+  _healScaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
