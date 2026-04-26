@@ -13,7 +13,6 @@ public class Health : MonoBehaviour
     public float Current => _currentValue;
     public float Max => _maxValue;
     public bool IsAlive => _currentValue > 0;
-    public bool IsFull => _currentValue >= _maxValue;
 
     private void Awake()
     {
