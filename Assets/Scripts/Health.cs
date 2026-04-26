@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float _maxHealth = 100f;
-    [SerializeField] private float _currentHealth;
+    [SerializeField] private float _maxValue = 100f;
+    [SerializeField] private float _currentValue;
 
-    public event Action<float, float> HealthChanged;
+    public event Action<float, float> Changed;
     public event Action Died;
     public event Action Hitted;
 
-    public float CurrentHealth => _currentHealth;
-    public float MaxHealth => _maxHealth;
-    public bool IsAlive => _currentHealth > 0;
-    public bool IsFull => _currentHealth >= _maxHealth;
+    public float Current => _currentValue;
+    public float Max => _maxValue;
+    public bool IsAlive => _currentValue > 0;
+    public bool IsFull => _currentValue >= _maxValue;
 
     private void Awake()
     {
-        _currentHealth = _maxHealth;
+        _currentValue = _maxValue;
     }
 
     public void TakeDamage(float amount)
@@ -25,12 +25,12 @@ public class Health : MonoBehaviour
         if (!IsAlive)
             return;
 
-        _currentHealth = Mathf.Max(0, _currentHealth - amount);
+        _currentValue = Mathf.Max(0, _currentValue - amount);
 
         Hitted?.Invoke();
-        HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        Changed?.Invoke(_currentValue, _maxValue);
 
-        if (_currentHealth <= 0)
+        if (_currentValue <= 0)
             Died?.Invoke();
     }
 
@@ -39,14 +39,14 @@ public class Health : MonoBehaviour
         if (!IsAlive)
             return;
 
-        _currentHealth = Mathf.Min(_maxHealth, _currentHealth + amount);
+        _currentValue = Mathf.Min(_maxValue, _currentValue + amount);
 
-        HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        Changed?.Invoke(_currentValue, _maxValue);
     }
 
     public void Reset()
     {
-        _currentHealth = _maxHealth;
-        HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        _currentValue = _maxValue;
+        Changed?.Invoke(_currentValue, _maxValue);
     }
 }

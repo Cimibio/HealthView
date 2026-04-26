@@ -77,7 +77,7 @@ public class HealthViewEffects : MonoBehaviour
     {
         _originalScale = Target.localScale;
         _originalRotation = Target.localRotation;
-        _lastHealth = _health.CurrentHealth;
+        _lastHealth = _health.Current;
 
         if (_targetText != null)
             _originalFontStyle = _targetText.fontStyle;
@@ -86,13 +86,13 @@ public class HealthViewEffects : MonoBehaviour
     private void OnEnable()
     {
         if (_health != null)        
-            _health.HealthChanged += ApplyEffect;        
+            _health.Changed += ApplyEffect;        
     }
 
     private void OnDisable()
     {
         if (_health != null)        
-            _health.HealthChanged -= ApplyEffect;        
+            _health.Changed -= ApplyEffect;        
 
         StopAllJuiceEffects();
         Target.localScale = _originalScale;

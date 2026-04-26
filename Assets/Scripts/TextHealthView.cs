@@ -11,15 +11,15 @@ public class TextHealthView : MonoBehaviour
     {
         if (_health != null)
         {
-            _health.HealthChanged += WriteHealth;
-            WriteHealth(_health.CurrentHealth, _health.MaxHealth);
+            _health.Changed += WriteHealth;
+            WriteHealth(_health.Current, _health.Max);
         }
     }
 
     private void OnDisable()
     {
         if (_health != null)        
-            _health.HealthChanged -= WriteHealth;        
+            _health.Changed -= WriteHealth;        
     }
    
     private void WriteHealth(float current, float max)

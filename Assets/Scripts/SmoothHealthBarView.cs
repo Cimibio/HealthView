@@ -1,45 +1,40 @@
 using UnityEngine;
-using UnityEngine.UI;
+using System.Collections;
 
-public class SmoothHealthBarView : MonoBehaviour
+public class SmoothHealthBarView : HealthBarView
 {
-    [SerializeField] private Health _health;
-    [SerializeField] private Slider _slider;
     [SerializeField] private float _smoothSpeed = 15f;
 
-    private float _targetValue;
+    private Coroutine _smoothCoroutine;
 
-    private void OnEnable()
+    protected override void OnDisable()
     {
-        if (_health != null)
+        base.OnDisable();
+
+        if (_smoothCoroutine != null)
         {
-            _health.HealthChanged += DrawFillZone;
-            SetupSlider();
-            _targetValue = _health.CurrentHealth;
-            _slider.value = _targetValue;
+            StopCoroutine(_smoothCoroutine);
+            _smoothCoroutine = null;
         }
     }
 
-    private void Update()
+    protected override void ApplyChanges(float current, float max)
     {
-        _slider.value = Mathf.MoveTowards(_slider.value, _targetValue, _smoothSpeed * Time.deltaTime);
+        if (_smoothCoroutine != null)
+            StopCoroutine(_smoothCoroutine);
+
+        _smoothCoroutine = StartCoroutine(SmoothChange(current));
     }
 
-    private void OnDisable()
+    private IEnumerator SmoothChange(float targetValue)
     {
-        if (_health != null)        
-            _health.HealthChanged -= DrawFillZone;        
-    }
+        while (Mathf.Abs(_slider.value - targetValue) > 0.01f)
+        {
+            _slider.value = Mathf.MoveTowards(_slider.value, targetValue, _smoothSpeed * Time.deltaTime);
+            yield return null;
+        }
 
-    private void SetupSlider()
-    {
-        _slider.minValue = 0;
-        _slider.maxValue = _health.MaxHealth;
-        _slider.wholeNumbers = false;
-    }
-
-    private void DrawFillZone(float current, float max)
-    {
-        _targetValue = current;
+        _slider.value = targetValue;
+        _smoothCoroutine = null;
     }
 }
